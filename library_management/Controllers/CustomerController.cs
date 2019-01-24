@@ -1,4 +1,5 @@
 ﻿using library_management.Data.Interfaces;
+using library_management.Data.Model;
 using library_management.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -18,14 +19,14 @@ namespace library_management.Controllers
             _customerRepository = customerRepository;
             _bookRepository = bookRepository;
         }
-
+        [Route("Customer")]
         public IActionResult List()
         {
             var customerVM = new List<CustomerViewModel>();
 
             var customers = _customerRepository.GetAll();
 
-            if(customers.Count() == 0)
+            if (customers.Count() == 0)
             {
                 return View("Empty");
             }
