@@ -1,5 +1,6 @@
 ﻿using library_management.Data.Interfaces;
 using library_management.Data.Model;
+using library_management.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,7 @@ namespace library_management.Controllers
                 // check books
                 return CheckBooks(books);
             }
+
             else if (authorId != null)
             {
                 // filter by author id
@@ -45,6 +47,7 @@ namespace library_management.Controllers
                     return View(author.Books);
                 }
             }
+
             else if (borrowerId != null)
             {
                 // filter by borrower id
@@ -54,12 +57,14 @@ namespace library_management.Controllers
                 // check borrower books
                 return CheckBooks(books);
             }
+
             else
             {
                 // throw exception
                 throw new ArgumentException();
             }
         }
+
         public IActionResult CheckBooks(IEnumerable<Book> books)
         {
             if (books.Count() == 0)
@@ -70,6 +75,48 @@ namespace library_management.Controllers
             {
                 return View(books);
             }
+        }
+
+        public IActionResult Create()
+        {
+            var bookVM = new BookViewModel()
+            {
+                Authors = _authorRepository.GetAll()
+            };
+
+            return View(bookVM);
+        }
+
+        [HttpPost]
+        public IActionResult Create(BookViewModel bookViewModel)
+        {
+            _bookRepository.Create(bookViewModel.Book);
+
+            return RedirectToAction("List");
+        }
+
+        public IActionResult Update(int id)
+        {
+            var bookVM = new BookViewModel()
+            {
+                Book = _bookRepository.GetById(id),
+                Authors = _authorRepository.GetAll()
+            };
+
+            return View(bookVM);
+        }
+
+        [HttpPost]
+        public IActionResult Update(BookViewModel bookViewModel)
+        {
+            _bookRepository.Update(bookViewModel.Book);
+
+            return RedirectToAction("List");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var book = _bookRepository.GetById(id);
         }
     }
 }
