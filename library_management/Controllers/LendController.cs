@@ -19,6 +19,7 @@ namespace library_management.Controllers
             _customerRepository = customerRepository;
         }
 
+        [Route("Lend")]
         public IActionResult List()
         {
             // load all available books
