@@ -1,12 +1,12 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using library_management.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-
-namespace library_management.Controllers
+namespace LibraryManagement.Controllers
 {
     public class ReturnController : Controller
     {
@@ -19,14 +19,13 @@ namespace library_management.Controllers
             _customerRepository = customerRepository;
         }
 
-        // GET: /<controller>/
+        [Route("Return")]
         public IActionResult List()
         {
             // load all borrowed books
-            var borrowedBooks = _bookRepository.FindWithAuthorAndBorrower(x => x.BorrowerId == 0);
-
-            // check the books collection
-            if(borrowedBooks == null || borrowedBooks.ToList().Count() == 0)
+            var borrowedBooks = _bookRepository.FindWithAuthorAndBorrower(x => x.BorrowerId != 0);
+            // Check the books collection
+            if (borrowedBooks == null || borrowedBooks.ToList().Count() == 0)
             {
                 return View("Empty");
             }
@@ -40,7 +39,6 @@ namespace library_management.Controllers
 
             // remove borrower
             book.Borrower = null;
-
             book.BorrowerId = 0;
 
             // update database
