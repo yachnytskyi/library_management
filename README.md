@@ -13,16 +13,27 @@ INSTALLATION
 Please make sure the release file is unpacked under a Web-accessible directory. You shall see the following files and directories:
 
 Controllers/
+
 Data/
+
 Models/
+
 Properties/
+
 ViewModel/
+
 Views/
+
 wwwroot/
+
 Program.cs
+
 Startup.cs
+
 appsettings.Development.json 	
+
 appsettings.json 	
+
 library_management.csproj
 
 REQUIREMENTS
