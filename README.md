@@ -6,7 +6,7 @@ Thanks for viewing the library management, it was created for learning and pract
 
 Build Status
 
-Blog version 1.1
+Library Management version 1.1
 
 INSTALLATION
 
